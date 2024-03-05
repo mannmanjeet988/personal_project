@@ -1,0 +1,80 @@
+.outer-container{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid brown;
+    /* height: 100vh;
+    width:100vw;
+    overflow: hidden; */
+    /* padding: 1rem; */
+}
+
+.inner-container{
+    /* position: relative; */
+    display: flex;
+    flex-direction: row;
+    border: 1px solid green;
+    /* background-color:grey; */
+    /* justify-content: space-around; */
+    /* align-items: center; */
+}
+
+.login-form{
+    border: 1px solid tomato;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center;  */
+/* position: absolute; */
+width: 410px;
+height: 443px;
+left: 204px;
+top: calc(50% - 443px/2 - 19px);
+}
+
+input[type="text"],button{
+   height:50px;
+   width: 410px;
+   border-radius: 15px;
+   margin-top:1rem;
+}
+
+button{
+    background-color:#9F8A58;
+    border: none;
+    color: white;
+}
+
+.right-container{
+    position:relative;
+    border: 5px solid black;
+    padding-left: 1rem;
+    /* margin-left: auto;
+    margin-right: auto; */
+}
+
+.left-container{
+    border: 5px solid red;
+    /* display:flex; */
+    width:50%;
+}
+.hand-img{
+position: absolute;
+max-width:100%;
+height:auto;
+/* width: 764px; */
+/* height: 779px; */
+left: 676px;
+top: 56px;
+/* background: url("LIVE EYE IMAGE24.png");
+ drop-shadow:0px 4px 4px rgba(0, 0, 0, 0.25); */
+
+}
+
+
+
+
+
+
+.left-container{
+padding:8rem;
+}
