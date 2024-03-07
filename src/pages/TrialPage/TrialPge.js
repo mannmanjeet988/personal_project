@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+import React, {useState, useEffect } from "react";
 
 const TrialPage = ()=>{
 
-        useEffect(() => {
-           
-        const val = localStorage.getItem("token");
-        
+    const [tokenVal, setTokenVal] = useState("");
+        useEffect(() => {         
+        let storedToken = (localStorage.getItem("token"));  
+        setTokenVal(storedToken);    
         }, [])
 
         return(
             <div>
             <h1>Welcome to Trial page</h1>  
-            {<p>val</p>}
+            <p>{tokenVal}</p>
             </div>
         )
 }
