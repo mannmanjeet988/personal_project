@@ -50,8 +50,6 @@ const LoginPage = () => {
             return;
         }
 
-
-
         try {
             const response = await axios.post("https://api-test.myliveeye.com/api/login/customer",
                 {
@@ -85,32 +83,34 @@ const LoginPage = () => {
             </div>
             <div className="inner-container">
                 <div className="left-container">
-
                     <form className="login-form" onSubmit={verifyUser}>
-                        <h1>Sign In</h1>
+                        <p className="signIn-text">Sign In</p>
                         {/* {success  && <h4 style={{color:"green"}}>{success}</h4>}
                           {error  && <h4 style={{color:"red"}}>{error}</h4>} */}
-                        <p className="">Enter your email and password to sign in!</p>
+                        <p className="hintText">Enter your email and password to sign in!</p>
                         <label>Email</label>
                         <input type="email" placeholder="Enter your email"
                             onChange={(e) => { setUser({ ...user, email: e.target.value }) }} />
                         <label >Password</label>
                         <input className="" type="password" placeholder="Enter your password"
                             onChange={(e) => { setUser({ ...user, password: e.target.value }) }} />
-                        <div>
-                            <label>
+                        <div className="forgot-pass-container">
+                            <label className="loggedInText">
                                 <input type="checkbox" />
                                 Keep me logged In
                             </label>
-                            <span>Forgot Password?</span>
+                            <span className="forgotPassText">Forgot Password?</span>
                         </div>
                         {/* <Link to="/trial"> <button >Sign In</button></Link> */}
-                        <button >Sign In</button>
+                        <button className="signIn-btn" >Sign In</button>
                     </form>
                     {/* <Link to="/trial">Trial</Link> */}
                 </div>
                 <div className="right-container">
-                    <img src={loginPage_handImg} alt="loginPage_handImg" />
+                    <img className="loginPage_handImg" src={loginPage_handImg} alt="loginPage_handImg" />
+                </div>
+                <div className="bottomTextDiv">
+                    <p className="bottomText">Unveil the Future of Protection with our cutting-edge AI solutions </p>
                 </div>
             </div>
 

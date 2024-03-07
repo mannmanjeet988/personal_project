@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     border: 1px solid brown;
-    /* height: 100vh;
+    height: 100vh;
     width:100vw;
-    overflow: hidden; */
+    overflow: hidden;
     /* padding: 1rem; */
 }
 
@@ -13,15 +13,33 @@
     display: flex;
     flex-direction: row;
     border: 1px solid green;
+    margin-top: -5rem;
     /* background-color:grey; */
     /* justify-content: space-around; */
     /* align-items: center; */
+}
+
+.right-container{
+    position:relative;
+    border: 5px solid black;
+    
+    /* margin-left: auto;
+    margin-right: auto; */
+}
+
+.left-container{
+    border: 5px solid red;
+    display:flex;
+    flex-direction: column;
+    width:50%;
 }
 
 .login-image{
     width: 156px;
 height: 50px;
 flex-shrink: 0;
+margin-left: 1rem;
+margin-top: 2rem;
 }
 
 .login-form{
@@ -29,53 +47,105 @@ flex-shrink: 0;
     display: flex;
     flex-direction: column;
     /* align-items: center;
-    justify-content: center;  */
-/* position: absolute; */
+    justify-content: center;  
+position: absolute; */
 width: 410px;
 height: 443px;
 left: 204px;
-top: calc(50% - 443px/2 - 19px);
+/* top: calc(50% - 443px/2 - 19px); */
 }
 
+.signIn-text{
+   color: #000;
+font-family: "SF Pro Display";
+font-size: 36px;
+font-style: normal;
+font-weight: 700;
+line-height: 56px; /* 155.556% */
+letter-spacing: -0.72px;
+}
 
-input[type="text"]{
+.forgotPassText{
+    color:#000 ;
+font-family: "SF Pro Display";
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 20px; /* 125% */
+letter-spacing: -0.32px;
+}
+
+.hintText{
+    color: rgba(29, 38, 48, 0.80);
+font-family: "SF Pro Display";
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 100%; /* 16px */
+letter-spacing: -0.32px;
+}
+
+.loggedInText{
+    color:#000;
+font-family: "SF Pro Display";
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 125% */
+letter-spacing: -0.32px;
+}
+
+.forgot-pass-container{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input[type="email"],input[type="password"]{
    height:50px;
    width: 410px;
    border-radius: 15px;
 flex-shrink: 0;
 border-radius: 16px;
 border: 1px solid rgba(151, 151, 151, 0.20);
-background-color: rgba(29, 38, 48, 0.20);
+background-color: rgba(46, 60, 77, 0.2);
 }
 
-button{
-    background-color:#9F8A58;
-    border: none;
-    color: white;
+input[type="checkbox"]{
+    width: 18px;
+height: 18px;
+padding: 1px;
+flex-shrink: 0;
+border-radius: 2px;
+background: #9F8A58;
 }
 
-.right-container{
-    position:relative;
-    border: 5px solid black;
-    padding-left: 1rem;
-    /* margin-left: auto;
-    margin-right: auto; */
+.signIn-btn{
+    display: flex;
+width: 410px;
+height: 54px;
+padding: 10px 8px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+flex-shrink: 0;
+border-radius: 16px;
+background: #9F8A58;
 }
 
-.left-container{
-    border: 5px solid red;
-    /* display:flex; */
-    width:50%;
-}
 
-.hand-img{
-position: absolute;
+
+.loginPage_handImg{
+    margin-top: 60px;
+    position: relative;
+    left:-50px;
+/* position: absolute;
 max-width:100%;
-height:auto;
+height:auto; */
 /* width: 764px; */
 /* height: 779px; */
-left: 676px;
-top: 56px;
+/* left: 676px;
+top: 56px; */
 /* background: url("LIVE EYE IMAGE24.png");
  drop-shadow:0px 4px 4px rgba(0, 0, 0, 0.25); */
 
@@ -84,4 +154,20 @@ top: 56px;
 
 .left-container{
 padding:8rem;
+}
+
+.bottomTextDiv{
+position:relative;
+z-index:100;
+margin-top: -20px;
+}
+.bottomText{   
+    color: #000;
+font-family: "SF Pro Display";
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: 56px; /* 175% */
+letter-spacing: -0.64px;
+
 }
