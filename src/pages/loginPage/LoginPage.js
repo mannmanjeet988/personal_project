@@ -1,122 +1,105 @@
-import React from "react";
-import "./loginPage.css";
-import logoImage from "../../assets/images/logo_login_page.png";
-import loginPage_handImg from "../../assets/images/loginPage_HandImg.jpg";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import React, {useState, useEffect } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+
+const TrialPage = ()=>{
+
+    const [tokenVal, setTokenVal] = useState("");
+    const[userData,setUserData] = useState({})
+    const [otherData, setOtherData] = useState([]);
+  const [thirdData, setThirdData] = useState([]);
 
 
-
-const LoginPage = () => {
-    const navigate = useNavigate()
-    const [user, setUser] = useState({
-        email: "",
-        password: "",
-    })
-    const [error, setError] = useState("")
-    const [success, setSuccess] = useState("")
-    const [token, setToken] = useState("")
-    console.log(token)
-
-
-    useEffect(() => {
-        if (token) {
-            localStorage.setItem("token", token);
-        }
-    }, [token])
-
-
-    async function verifyUser(e) {
-        e.preventDefault();
-
-        if (!user.email && !user.password) {
-          //  setError("Please enter email and password")
-            toast.error("Please enter email and password")
-            setSuccess("")
-            return;
-        }
-
-        if (!user.email) {
-            toast.error("Please enter email")
-            setSuccess("")
-            return;
-        }
-
-        if (!user.password) {
-            toast.error("Please enter password")
-            setSuccess("")
-            return;
-        }
-
-        try {
-            const response = await axios.post("https://api-test.myliveeye.com/api/login/customer",
-                {
-                    email: user.email,
-                    password: user.password,
+        // useEffect(() => {         
+        // let storedToken = (localStorage.getItem("token"));  
+        // setTokenVal(storedToken); 
+        // if(tokenVal)   {
+        //    // https://api-test.myliveeye.com/api/cust-portal/customer/user-details')
+        //  axios.get("https://api-test.myliveeye.com/api/cust-portal/customer/user-details", {
+        //         headers: {
+        //             "Authorization":  `Bearer ${storedToken}`
+        //         }  
+        //       }).then(response => {
+        //         console.log(response.data);
+        //         setData(response.data);
+        //         console.log(data)
+        //         // or any other value you want to return
+        //       })
+        //       .catch(err => console.log(err))
+        //     }
+        // },[tokenVal])
+        useEffect(() => {
+            const fetchData = async () => {
+              try {
+                const storedToken = localStorage.getItem("token");
+                setTokenVal(storedToken);
+        
+                if (storedToken) {
+                  // Fetch user data
+                  const userResponse = await axios.get(
+                    "https://api-test.myliveeye.com/api/cust-portal/customer/user-details",
+                    {
+                      headers: {
+                        Authorization: `Bearer ${storedToken}`,
+                      },
+                    }
+                  );
+                  setUserData(userResponse.data);
+        
+                 
+                  const otherResponse = await axios.get(
+                    "https://api-test.myliveeye.com/api/cust-portal/push-button-alerts?first=0&rows=10",
+                    {
+                      headers: {
+                        Authorization: `Bearer ${storedToken}`,
+                      },
+                    }
+                  );
+                  setOtherData(otherResponse.data);
+                  console.log(otherResponse.data);
+        
+                
+                  const thirdResponse = await axios.get(
+                    "https://api-test.myliveeye.com/api/cust-portal/battery-life",
+                    
+                    {
+                      headers: {
+                        Authorization: `Bearer ${storedToken}`,
+                      },
+                    }
+                  );
+                  setThirdData(thirdResponse.data);
+                  console.log(thirdResponse.data);
                 }
-            )
-            console.log(response)
-            console.log("token", response.data.token);
-            setToken(response.data.token)
-            localStorage.setItem("token", response.data.token)
-            setError("")
-            //setSuccess("Login successful")
-            toast.success("Login successful")
-            navigate("/trial")
+              } catch (error) {
+                console.error("Error fetching data:", error);
+              }
+            };
+        
+            fetchData();
+          }, []);
+        
 
-        }
-        catch (err) {
-            console.log(err)
-            //setError(err.response.data.message)
-            toast.error(err.response.data.message)
-            setSuccess("")
-        }
-    }
-
-    return (
-        <div className="outer-container">
-
-            <div className="header">
-                <img className="logo-image" src={logoImage} alt="logo-image" />
+        return(
+            <div>
+            <h1>Welcome to Trial page</h1>  
+            <p>{tokenVal}</p>
+            <p>{userData.firstName}</p>
+            <h1>Second Data</h1>
+<p>{otherData[0].store_name}</p>
+<video controls width="600" height="400">
+            <source src={otherData[2].video_link} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+            <h1>Third Data</h1>
+            <p>{thirdData[0].device_id}</p>
+<p></p>
+            {/* <img
+            src={decodeURIComponent(data.profileImage)}
+            alt="Profile"
+            style={{ width: "100px", height: "auto" }}
+             /> */}
             </div>
-            <div className="inner-container">
-                <div className="left-container">
-                    <form className="login-form" onSubmit={verifyUser}>
-                        <p className="signIn-text">Sign In</p>
-                        {/* {success  && <h4 style={{color:"green"}}>{success}</h4>}
-                          {error  && <h4 style={{color:"red"}}>{error}</h4>} */}
-                        <p className="hintText">Enter your email and password to sign in!</p>
-                        <label>Email</label>
-                        <input type="email" placeholder="Enter your email"
-                            onChange={(e) => { setUser({ ...user, email: e.target.value }) }} />
-                        <label >Password</label>
-                        <input className="" type="password" placeholder="Enter your password"
-                            onChange={(e) => { setUser({ ...user, password: e.target.value }) }} />
-                        <div className="forgot-pass-container">
-                            <label className="loggedInText">
-                                <input type="checkbox" />
-                                Keep me logged In
-                            </label>
-                            <span className="forgotPassText">Forgot Password?</span>
-                        </div>
-                        {/* <Link to="/trial"> <button >Sign In</button></Link> */}
-                        <button className="signIn-btn" >Sign In</button>
-                    </form>
-                    {/* <Link to="/trial">Trial</Link> */}
-                </div>
-                <div className="right-container">
-                    <img className="loginPage_handImg" src={loginPage_handImg} alt="loginPage_handImg" />
-                </div>
-                <div className="bottomTextDiv">
-                    <p className="bottomText">Unveil the Future of Protection with our cutting-edge AI solutions </p>
-                </div>
-            </div>
-
-        </div>
-    )
+        )
 }
 
-export default LoginPage
-
+export default TrialPage;
