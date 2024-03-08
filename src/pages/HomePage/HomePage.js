@@ -1,23 +1,17 @@
-import React, {useState, useEffect } from "react";
+import React from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
-const TrialPage = ()=>{
-
+const HomePage = ()=>{
     const [tokenVal, setTokenVal] = useState("");
-    const[userData,setUserData] = useState({})
+    const[Data1,setData1] = useState({})
     const [otherData, setOtherData] = useState([]);
-  const [thirdData, setThirdData] = useState([]);
+  const navigate =useNavigate();
   const[loading1,setLoading1] = useState(true);
   const[loading2,setLoading2] = useState(true);
-  const[loading3,setLoading3] = useState(true);
-  const navigate = useNavigate();
-//   const abortController = new AbortController();
-//   const { signal } = abortController;
-
   function handleNavigate(){
-    navigate("/home");
+    navigate("/trial");
   }
 
 
@@ -48,19 +42,20 @@ const TrialPage = ()=>{
                 if (storedToken) {
                   // Fetch user data
                   const userResponse = await axios.get(
-                    "https://api-test.myliveeye.com/api/cust-portal/customer/user-details",
+                    "https://api-test.myliveeye.com/api/cust-portal/evidence-request",
                     {
                       headers: {
                         Authorization: `Bearer ${storedToken}`,
                       },
                     }
                   );
-                  setUserData(userResponse.data);
+                  setData1(userResponse.data);
                   setLoading1(false);
+                  console.log(userResponse.data);
         
                  
                   const otherResponse = await axios.get(
-                    "https://api-test.myliveeye.com/api/cust-portal/push-button-alerts?first=0&rows=10",
+                    "https://api-test.myliveeye.com/api/cust-portal/custom-query-request",
                     {
                       headers: {
                         Authorization: `Bearer ${storedToken}`,
@@ -72,18 +67,7 @@ const TrialPage = ()=>{
                   console.log(otherResponse.data);
         
                 
-                  const thirdResponse = await axios.get(
-                    "https://api-test.myliveeye.com/api/cust-portal/battery-life",
-                    
-                    {
-                      headers: {
-                        Authorization: `Bearer ${storedToken}`,
-                      },
-                    }
-                  );
-                  setThirdData(thirdResponse.data);
-                  console.log(thirdResponse.data);
-                  setLoading3(false);
+                 
                 }
               } catch (error) {
                 if (error.name === "AbortError") {
@@ -102,39 +86,19 @@ const TrialPage = ()=>{
 
         return(
             <div>
-            <h1>Welcome to Trial page</h1>  
-            <p>{tokenVal}</p>
-             {loading2? <div>Loading...</div> :<p> {userData.firstName}</p>}
+            <h1>Welcome to Home page</h1>  
+            
+             {loading1? <div>Loading...</div> :<p> {Data1[0].evidence_time}</p>}
             <h1>Second Data</h1>
             {loading2? <div>Loading...</div> :
             (<div>
-            <p>{otherData[0].store_name}</p>
-            <video controls width="600" height="400">
-                        <source src="https://player.vimeo.com/external/384761655.sd.mp4?s=383ab4dbc773cd0d5ece3af208d8f963368f67e4&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-            {/* <iframe
-            width="600"
-            height="400"
-            src="https://player.vimeo.com/external/496797033.sd.mp4?s=5ed472674c6878067353d85224650f6bc4f4a247&profile_id=164&oauth2_token_id=57447761"
-            title="Embedded Video"
-            frameBorder="0"
-            allowFullScreen
-          ></iframe> */}
+            <p>{otherData[0].created_on}</p>
             </div>)
-            }
-
-            <h1>Third Data</h1>
-           {loading3 ? <div>Loading...</div> : (<p>{thirdData[0].device_id}</p>)}  
-
-            <img
-            src={(userData.profileImage)}
-            alt="Profile"
-            style={{ width: "100px", height: "auto" }}
-             />
-             <button onClick={handleNavigate} >Home</button>
+            }     
+            <button onClick={handleNavigate} >Move To Trial Page</button>  
             </div>
         )
+  
 }
 
-export default TrialPage;
+export default HomePage;
