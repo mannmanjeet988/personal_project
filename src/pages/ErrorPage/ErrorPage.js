@@ -2,7 +2,7 @@ import React from "react";
 
 const Error =()=>{
     return <div>
-        <h1 style={{textAlign:"center"}}>Error</h1>
+        <h1 style={{textAlign:"center"}}>OOPS! Error</h1>
     </div>
 }
 
